@@ -1,0 +1,34 @@
+<h1><a href="/">Survey Database</a></h1>
+<h3><%= @survey.name %></h3>
+
+<form action="/surveys/<%=@survey.id %>" method ="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit" class="btn btn-danger btn-xs">Delete survey</button>
+</form>
+
+<form action="/surveys/<%= @survey.id %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <label for="name">Change survey name</label>
+  <input type="text" name="name" id="name">
+  <button type="submit" class="btn btn-info btn-xs">Update survey</button>
+</form>
+
+<form action="/questions" method="post">
+  <input id="survey_id" name="survey_id" type="hidden" value="<%= @survey.id %>">
+
+  <label for="description">Add a question</label>
+
+  <input type="text" name="description" id="description">
+
+  <button type="submit">Add</button>
+</form>
+
+<% if @survey.questions.any? %>
+  <% @survey.questions.each do |question| %>
+    <ul>
+      <li><%= question.description() %></li>
+    </ul>
+  <% end %>
+<% else %>
+  <p> There are no questions in this survey yet </p>
+<% end %>
