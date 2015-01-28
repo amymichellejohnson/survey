@@ -1,0 +1,20 @@
+<h1><a href="/">Survey Database</a></h1>
+<h3>Create a Survey below</h3>
+
+
+<form action="/" method="post">
+  <label for="name">Name your survey:</label>
+  <input type="text" name="name" id="name">
+  <button type="submit" class="btn">Add</button>
+
+</form>
+
+<% if @surveys.any?() %>
+  <% @surveys.each() do |survey| %>
+    <ul>
+      <li><%= survey.name() %></li>
+    </ul>
+  <%end%>
+<% else%>
+  <p> No surveys have been created yet </p>
+<%end%>
