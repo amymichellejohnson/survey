@@ -1,0 +1,17 @@
+<h1><a href="/">Survey Database</a></h1>
+<h3><%=@question.description() %></h3>
+
+<form action="/questions/<%= @question.id %>" method="post">
+  <input type="hidden" name="_method" value ="delete">
+  <button type="submit" class="btn-danger">Delete question</button>
+</form>
+<form action="/responses" method="post">
+  <input id="question_id" name="question_id" type="hidden" value="<%=@question.id%>">
+  <label for="answer">Add a response</label>
+  <input id="answer" name="answer" type="text">
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+<% @question.responses.each do |response| %>
+  <%= response.answer %><br>
+<% end %>

@@ -1,18 +1,18 @@
 <h1><a href="/">Survey Database</a></h1>
-<h3><%= @survey.name %></h3>
+<h3 style="display: inline-block;"><%= @survey.name %></h3>
 
-<form action="/surveys/<%=@survey.id %>" method ="post">
+<form action="/surveys/<%=@survey.id %>" method ="post" style="display: inline-block;">
   <input name="_method" type="hidden" value="delete">
-  <button type="submit" class="btn btn-danger btn-xs">Delete survey</button>
+  <button type="submit" class="btn btn-danger btn-xs">Delete</button>
 </form>
 
 <form action="/surveys/<%= @survey.id %>" method="post">
   <input name="_method" type="hidden" value="patch">
-  <label for="name">Change survey name</label>
+  <label for="name">Rename your survey</label>
   <input type="text" name="name" id="name">
-  <button type="submit" class="btn btn-info btn-xs">Update survey</button>
+  <button type="submit" class="btn btn-info btn-xs">Update</button>
 </form>
-
+<br>
 <form action="/questions" method="post">
   <input id="survey_id" name="survey_id" type="hidden" value="<%= @survey.id %>">
 
@@ -23,11 +23,12 @@
   <button type="submit">Add</button>
 </form>
 
+<p>Here are your questions:</p>
 <% if @survey.questions.any? %>
   <% @survey.questions.each do |question| %>
-    <ul>
-      <li><%= question.description() %></li>
-    </ul>
+    <ol>
+      <li><a href="/questions/<%= question.id() %>"><%= question.description() %></a></li>
+    </ol>
   <% end %>
 <% else %>
   <p> There are no questions in this survey yet </p>

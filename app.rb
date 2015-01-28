@@ -41,3 +41,23 @@ patch("/surveys/:id") do
   @survey.update({:name => name})
   erb(:survey)
 end
+
+get("/questions/:id") do
+  @question= Question.find(params.fetch("id").to_i)
+  erb(:question)
+end
+
+delete("/questions/:id") do
+  @question= Question.find(params.fetch("id").to_i)
+  @survey= @question.survey
+  @question.destroy
+  erb(:survey)
+end
+
+post("/responses") do
+  answer = params.fetch("answer")
+  question_id = params.fetch("question_id")
+  response = Response.create({:answer => answer, :question_id => question_id})
+  @question = Question.find(question_id)
+  erb(:question)
+end
