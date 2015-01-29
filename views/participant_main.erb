@@ -1,0 +1,6 @@
+<h1>Choose a Survey to take:</h1>
+<% @surveys.each() do |survey| %>
+  <ul>
+    <li><a href="/participant/survey/<%= survey.id %>"><%= survey.name %></a></li>
+  </ul>
+<%end%>

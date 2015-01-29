@@ -3,6 +3,20 @@ Bundler.require(:default)
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+get("/start_page") do
+  erb(:start_page)
+end
+
+get("/participant/main") do
+  @surveys = Survey.all
+  erb(:participant_main)
+end
+
+get("/participant/survey/:id") do
+  @survey = Survey.find(params.fetch("id").to_i)
+  erb(:participant_survey)
+end
+
 get('/') do
   @surveys= Survey.all()
   erb(:index)
@@ -20,11 +34,10 @@ get("/surveys/:id") do
   erb(:survey)
 end
 
-post("/questions") do
-  description = params.fetch("description")
-  survey_id = params.fetch("survey_id").to_i
-  question = Question.create({ :description => description, :survey_id => survey_id })
-  @survey = Survey.find(survey_id)
+patch("/surveys/:id") do
+  @survey = Survey.find(params.fetch("id").to_i)
+  name = params.fetch("name")
+  @survey.update({:name => name})
   erb(:survey)
 end
 
@@ -35,10 +48,11 @@ delete("/surveys/:id") do
   erb(:index)
 end
 
-patch("/surveys/:id") do
-  @survey = Survey.find(params.fetch("id").to_i)
-  name = params.fetch("name")
-  @survey.update({:name => name})
+post("/questions") do
+  description = params.fetch("description")
+  survey_id = params.fetch("survey_id").to_i
+  question = Question.create({ :description => description, :survey_id => survey_id })
+  @survey = Survey.find(survey_id)
   erb(:survey)
 end
 

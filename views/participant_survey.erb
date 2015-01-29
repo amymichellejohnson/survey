@@ -1,0 +1,20 @@
+<h1><a href="/participant/main">Surveys</a></h1>
+
+<% @survey.questions.each do |question| %>
+
+<h3><%= question.description %></h3>
+
+<form action="" method="post">
+
+
+</form>
+
+<% question.responses.each do |response| %>
+
+<%= response.answer %><br>
+
+<% end %>
+
+<br>
+
+<% end %>
